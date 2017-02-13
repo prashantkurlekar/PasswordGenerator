@@ -1,9 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Suggestions</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  {{ generatedPassword }}
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider color="light">Simple passwords</ion-item-divider>
+      <ion-item *ngFor="let password of simplePasswords">
+        {{ password }}
+        <button ion-button outline item-right (click)="onCopy(password)">
+          Copy
+        </button>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light">Password with numbers</ion-item-divider>
+      <ion-item *ngFor="let password of passwordsWithNumber">
+        {{ password }}
+        <button ion-button outline item-right (click)="onCopy(password)">
+          Copy
+        </button>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <p padding-left padding-right>
+    <button ion-button block padding (click)="onGeneratePasswords()">Refresh passwords</button>
+  </p>
+
 </ion-content>

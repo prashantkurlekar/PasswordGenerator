@@ -1,8 +1,8 @@
+import { Clipboard } from 'ionic-native';
 import { PronounceablePasswordService } from './../../services';
 import { HomePage } from './home';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { IonicModule, NavParams, NavController } from 'ionic-angular';
+import { IonicModule, NavController } from 'ionic-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavControllerMock } from "../../mocks";
 
@@ -40,12 +40,21 @@ describe('Page: HomePage', () => {
     expect(componentInstance).toBeDefined();
   });
 
-  it('should get new password', () => {
-    spyOn(componentInstance.pronounceablePasswordService, 'get').and.returnValue('012345678912');
+  it('should get new passwords', () => {
+    spyOn(componentInstance.pronounceablePasswordService, 'getSimplePassword').and.returnValue('012345678912');
 
-    componentInstance.onGeneratePassword();
+    componentInstance.onGeneratePasswords();
 
-    expect(componentInstance.generatedPassword.length).toBe(12);
+    expect(componentInstance.simplePasswords.length).toBeGreaterThan(0);
+    expect(componentInstance.passwordsWithNumber.length).toBeGreaterThan(0);
+  });
+
+  it('should copy password to Clipboard', () => {
+    spyOn(Clipboard, 'copy').and.stub();
+
+    componentInstance.onCopy('passwordToCopy');
+
+    expect(Clipboard.copy).toHaveBeenCalled();
   });
 
 });

@@ -6,8 +6,11 @@ export class PronounceablePasswordService {
 
   constructor() { }
 
-  public get(): string {
-    return GPW.pronounceable(12);
+  public getSimplePassword(passwordLength: number): string {
+    return GPW.pronounceable(passwordLength);
+  }
+
+  public getPasswordWithNumber(passwordLength: number): string {
+    return `${GPW.pronounceable(passwordLength - 2)}${Math.floor((Math.random() * 99) + 1)}`;
   }
 }
-
