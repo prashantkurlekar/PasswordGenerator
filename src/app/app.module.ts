@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ComponentsModule } from './../components/components.module';
 
 const components = [
   MyApp,
@@ -17,7 +18,7 @@ const components = [
   declarations: components,
   imports: [
     IonicModule.forRoot(MyApp),
-    ServicesModule,
+    ServicesModule, ComponentsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: components,

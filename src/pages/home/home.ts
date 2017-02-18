@@ -2,7 +2,6 @@ import { AppConfig } from './../../app/app.config';
 import { PronounceablePasswordService } from './../../services';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Clipboard } from 'ionic-native';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +12,7 @@ export class HomePage {
   public simplePasswords: Array<string>;
   public passwordsWithNumber: Array<string>;
 
-  constructor(public navCtrl: NavController, public pronounceablePasswordService: PronounceablePasswordService) {
+  constructor(public navController: NavController, public pronounceablePasswordService: PronounceablePasswordService) {
     this.onGeneratePasswords();
   }
 
@@ -36,10 +35,6 @@ export class HomePage {
       passwordsWithNumber.push(this.pronounceablePasswordService.getPasswordWithNumber(passwordLength));
     }
     return passwordsWithNumber;
-  }
-
-  public onCopy(password): void {
-    Clipboard.copy(password);
   }
 
 }
