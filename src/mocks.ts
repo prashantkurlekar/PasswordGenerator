@@ -1,3 +1,4 @@
+import { Password } from './models/password';
 export class ConfigMock {
 
   public get(): any {
@@ -60,4 +61,27 @@ export class MenuMock {
       resolve();
     });
   }
+}
+
+export class SecureStorageServiceMock {
+  public get(key: string): Promise<any> {
+    let value: any;
+    switch (key) {
+      case 'SavedPasswords':
+        value = Promise.resolve([new Password('one'), new Password('two', 'gmail.com')]);
+        break;
+      default:
+        value = Promise.resolve('SHOULD NOT BE HERE');
+        break;
+    }
+    return value;
+  }
+}
+
+export function spyOnConsole() {
+  spyOn(console, 'log').and.stub();
+  spyOn(console, 'info').and.stub();
+  spyOn(console, 'debug').and.stub();
+  spyOn(console, 'warn').and.stub();
+  spyOn(console, 'error').and.stub();
 }

@@ -3,7 +3,7 @@ import { SettingsPage } from './settings';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { IonicModule, NavController } from 'ionic-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NavControllerMock } from "../../mocks";
+import { NavControllerMock, spyOnConsole } from "../../mocks";
 
 describe('Page: SettingsPage', () => {
 
@@ -27,9 +27,7 @@ describe('Page: SettingsPage', () => {
   }));
 
   beforeEach(() => {
-    spyOn(console, 'log').and.stub();
-    spyOn(console, 'info').and.stub();
-    spyOn(console, 'debug').and.stub();
+    spyOnConsole();
 
     fixture = TestBed.createComponent(SettingsPage);
     componentInstance = fixture.componentInstance;

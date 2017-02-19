@@ -1,4 +1,4 @@
-import { PronounceablePasswordService, SettingsService, StorageService } from './';
+import { PronounceablePasswordService, SettingsService, SecureStorageService } from './';
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 
@@ -7,7 +7,7 @@ import { IonicModule } from 'ionic-angular';
     IonicModule,
   ],
   providers: [
-    PronounceablePasswordService, SettingsService, StorageService,
+    PronounceablePasswordService, SettingsService, SecureStorageService,
   ],
 })
 export class ServicesModule { }

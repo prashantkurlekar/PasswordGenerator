@@ -7,7 +7,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class PronounceablePasswordApp {
   rootPage = TabsPage;
 
   constructor(platform: Platform) {

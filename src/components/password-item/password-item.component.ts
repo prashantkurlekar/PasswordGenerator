@@ -1,6 +1,6 @@
+import { Password } from './../../models/password';
 import { LoggerService } from './../../services/logger/logger.service';
-import { AppConfig } from './../../app/app.config';
-import { StorageService } from './../../services/storage/storage.service';
+import { PronounceablePasswordService } from './../../services';
 import { Component, Input } from '@angular/core';
 import { Clipboard } from 'ionic-native';
 
@@ -12,20 +12,16 @@ export class PasswordItemComponent {
 
   @Input() passwordSuggestion: any;
 
-  constructor(public storageService: StorageService) { ; }
+  constructor(public passwordService: PronounceablePasswordService) { ; }
 
   public onCopy(password): void {
+    LoggerService.log(`PasswordItemComponent.onCopy`);
     Clipboard.copy(password);
   }
 
   public onSave(password): void {
-    LoggerService.info(password);
-    this.storageService.set(AppConfig.storedPasswordsStorageKey, password)
-      .then(() => {
-        this.storageService.get(AppConfig.storedPasswordsStorageKey).then(value => {
-          LoggerService.debug(value);
-        });
-      });
+    LoggerService.log(`PasswordItemComponent.onSave`);
+    this.passwordService.savePassword(new Password(password));
   }
 
 }

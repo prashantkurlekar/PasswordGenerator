@@ -1,11 +1,18 @@
+import { Password } from './../../models/password';
 import { TestBed, inject } from '@angular/core/testing';
 import { PronounceablePasswordService } from './pronounceable-password.service';
+import { SecureStorageService } from '../storage/secure-storage.service';
+import { spyOnConsole } from "../../mocks";
 
 describe('Service: PronounceablePasswordService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PronounceablePasswordService]
+      providers: [PronounceablePasswordService, SecureStorageService]
     });
+  });
+
+  beforeEach(() => {
+    spyOnConsole();
   });
 
   it('should initialize',
@@ -30,8 +37,29 @@ describe('Service: PronounceablePasswordService', () => {
 
       const password = service.getPasswordWithNumber(passwordLength);
 
-      expect(password.length).toBeGreaterThanOrEqual(passwordLength);
       expect(password).toMatch('\\d');
+    })
+  );
+
+  it('should save the password',
+    inject([PronounceablePasswordService], (service: PronounceablePasswordService) => {
+      const password: Password = new Password('my-password', 'gmail.com');
+      spyOn(service.storageService, 'get').and.returnValue(Promise.resolve([new Password('one'), new Password('two')]));
+      spyOn(service.storageService, 'set').and.stub();
+
+      service.savePassword(password).then(() => {
+        expect(service.storageService.set).toHaveBeenCalled();
+      });
+    })
+  );
+
+  it('should return saved passwords',
+    inject([PronounceablePasswordService], (service: PronounceablePasswordService) => {
+      spyOn(service.storageService, 'get').and.returnValue(Promise.resolve([new Password('one'), new Password('two')]));
+
+      service.getSavedPasswords().then(() => {
+        expect(service.storageService.get).toHaveBeenCalled();
+      });
     })
   );
 });

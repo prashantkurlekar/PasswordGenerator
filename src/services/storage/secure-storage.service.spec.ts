@@ -1,27 +1,26 @@
 import { SecureStorage } from 'ionic-native';
 import { Storage } from '@ionic/storage';
-import { AppConfig } from './../../app/app.config';
-import { TestBed, async, inject } from '@angular/core/testing';
-import { StorageService } from './storage.service';
+// import { AppConfig } from './../../app/app.config';
+import { TestBed, inject } from '@angular/core/testing';
+import { SecureStorageService } from './secure-storage.service';
+import { spyOnConsole } from "../../mocks";
 
 describe('Service: StorageService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        StorageService, Storage, SecureStorage,
+        SecureStorageService, Storage, SecureStorage,
       ]
     });
   });
 
   beforeEach(() => {
-    spyOn(console, 'log').and.stub();
-    spyOn(console, 'info').and.stub();
-    spyOn(console, 'debug').and.stub();
+    spyOnConsole();
   });
 
   it('should initialize',
-    inject([StorageService], (service: StorageService) => {
+    inject([SecureStorageService], (service: SecureStorageService) => {
       expect(service).toBeTruthy();
     })
   );

@@ -1,9 +1,11 @@
-import { StorageService } from './../../services/storage/storage.service';
+import { SecureStorageService } from './../../services/storage/secure-storage.service';
 import { Clipboard } from 'ionic-native';
 import { PasswordItemComponent } from './password-item.component';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { IonicModule } from 'ionic-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { PronounceablePasswordService } from './../../services';
+import { spyOnConsole } from "../../mocks";
 
 describe('Component: PasswordItemComponent', () => {
 
@@ -17,7 +19,7 @@ describe('Component: PasswordItemComponent', () => {
         IonicModule.forRoot(PasswordItemComponent)
       ],
       providers: [
-        StorageService,
+        PronounceablePasswordService, SecureStorageService,
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
@@ -26,9 +28,7 @@ describe('Component: PasswordItemComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOn(console, 'log').and.stub();
-    spyOn(console, 'info').and.stub();
-    spyOn(console, 'debug').and.stub();
+    spyOnConsole();
 
     fixture = TestBed.createComponent(PasswordItemComponent);
     componentInstance = fixture.componentInstance;
@@ -44,6 +44,14 @@ describe('Component: PasswordItemComponent', () => {
     componentInstance.onCopy('passwordToCopy');
 
     expect(Clipboard.copy).toHaveBeenCalled();
+  });
+
+  it('should save password', () => {
+    spyOn(componentInstance.passwordService, 'savePassword');
+
+    componentInstance.onSave('mypassword');
+
+    expect(componentInstance.passwordService.savePassword).toHaveBeenCalled();
   });
 
 });

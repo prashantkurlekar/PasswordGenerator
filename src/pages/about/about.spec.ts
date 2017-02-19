@@ -1,24 +1,25 @@
 import { PronounceablePasswordService, SecureStorageService } from './../../services';
-import { HomePage } from './home';
+import { AboutPage } from './about';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { IonicModule, NavController } from 'ionic-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavControllerMock, spyOnConsole } from "../../mocks";
+import { AppVersion } from 'ionic-native';
 
-describe('Page: HomePage', () => {
+describe('Page: AboutPage', () => {
 
-  let fixture: ComponentFixture<HomePage>;
-  let componentInstance: HomePage;
+  let fixture: ComponentFixture<AboutPage>;
+  let componentInstance: AboutPage;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomePage],
+      declarations: [AboutPage],
       providers: [
         { provide: NavController, useClass: NavControllerMock },
         PronounceablePasswordService, SecureStorageService,
       ],
       imports: [
-        IonicModule.forRoot(HomePage)
+        IonicModule.forRoot(AboutPage)
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
@@ -29,7 +30,7 @@ describe('Page: HomePage', () => {
   beforeEach(() => {
     spyOnConsole();
 
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(AboutPage);
     componentInstance = fixture.componentInstance;
   });
 
@@ -37,21 +38,14 @@ describe('Page: HomePage', () => {
     expect(componentInstance).toBeDefined();
   });
 
-  it('should get new passwords', () => {
-    spyOn(componentInstance.pronounceablePasswordService, 'getSimplePassword').and.returnValue('012345678912');
+  it('should extract app version', () => {
+    const appVersion = '1.0.0';
+    spyOn(AppVersion, 'getVersionNumber').and.returnValue(Promise.resolve(appVersion));
 
-    componentInstance.onGeneratePasswords();
+    componentInstance.extractAppVersion();
 
-    expect(componentInstance.simplePasswords.length).toBeGreaterThan(0);
-    expect(componentInstance.passwordsWithNumber.length).toBeGreaterThan(0);
+    fixture.whenStable().then(() => {
+      expect(componentInstance.appVersion).toBe(appVersion);
+    });
   });
-
-  // it('should copy password to Clipboard', () => {
-  //   spyOn(Clipboard, 'copy').and.stub();
-
-  //   componentInstance.onCopy('passwordToCopy');
-
-  //   expect(Clipboard.copy).toHaveBeenCalled();
-  // });
-
 });
