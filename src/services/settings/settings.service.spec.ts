@@ -1,40 +1,41 @@
-// import { SecureStorage } from 'ionic-native';
-// import { StorageService } from './../storage/storage.service';
-// import { Storage } from '@ionic/storage';
-// import { TestBed, async, inject } from '@angular/core/testing';
-// import { SettingsService } from './settings.service';
+import { SecureStorage } from 'ionic-native';
+import { SecureStorageService } from '../storage/secure-storage.service';
+import { Storage } from '@ionic/storage';
+import { TestBed, async, inject } from '@angular/core/testing';
+import { SettingsService } from './settings.service';
+import { spyOnConsole } from "../../mocks";
 
-// describe('Service: SettingsService', () => {
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       providers: [
-//         SettingsService, Storage, StorageService, SecureStorage,
-//       ]
-//     });
-//   });
+describe('Service: SettingsService', () => {
 
-//   beforeEach(() => {
-//     spyOn(console, 'log').and.stub();
-//     spyOn(console, 'info').and.stub();
-//     spyOn(console, 'debug').and.stub();
-//   });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        SecureStorageService, SettingsService,
+        SecureStorage, Storage,
+      ]
+    });
+  });
 
-//   it('should initialize',
-//     inject([SettingsService], (service: SettingsService) => {
-//       expect(service).toBeTruthy();
-//     })
-//   );
+  beforeEach(() => {
+    spyOnConsole();
+  });
 
-//   it('should save settings',
-//     async(inject([SettingsService], (service: SettingsService) => {
-//       const key: string = 'PasswordLength';
-//       const value: number = 12;
+  it('should initialize',
+    inject([SettingsService], (service: SettingsService) => {
+      expect(service).toBeTruthy();
+    })
+  );
 
-//       spyOn(service, 'set').and.stub();
+  it('should save settings',
+    async(inject([SettingsService], (service: SettingsService) => {
+      const key: string = 'PasswordLength';
+      const value: number = 12;
 
-//       service.set(key, value);
+      spyOn(service.storage, 'set').and.stub();
 
-//       expect(service.set).toHaveBeenCalled();
-//     }))
-//   );
-// });
+      service.set(key, value);
+
+      expect(service.storage.set).toHaveBeenCalled();
+    }))
+  );
+});

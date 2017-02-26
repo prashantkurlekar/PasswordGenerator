@@ -8,13 +8,18 @@
 
 <ion-content>
   <ion-list>
-    <!--<ion-list-header>
-      Action
-    </ion-list-header>-->
-    <ion-item *ngFor="let password of savedPasswords">
-      {{ password.value }}
-    </ion-item>
-    <!--<ion-item>The Empire Strikes Back</ion-item>
-    <ion-item>Blade Runner</ion-item>-->
+
+    <ion-item-sliding *ngFor="let password of savedPasswords">
+      <ion-item>
+        {{ password.value }}
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="danger" icon-left (click)="onRemove(password)">
+          <ion-icon name="trash" color="danger"></ion-icon>
+          Remove
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
   </ion-list>
 </ion-content>

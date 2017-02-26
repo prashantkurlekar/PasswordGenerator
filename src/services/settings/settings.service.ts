@@ -1,13 +1,17 @@
-import { SecureStorageService } from './../storage/secure-storage.service';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class SettingsService {
 
-  constructor(public storageService: SecureStorageService) { ; }
+  constructor(public storage: Storage) { ; }
 
-  public set(key: string, value: any) {
-    this.storageService.set(key, value);
+  public set(key: string, value: any): Promise<any> {
+    return this.storage.set(key, value);
   }
+
+  // public getSettings(): Promise<any> {
+  //   return Promise.resolve({});
+  // }
 
 }

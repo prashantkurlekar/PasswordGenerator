@@ -1,6 +1,6 @@
 import { PronounceablePasswordService, SecureStorageService } from './../../services';
 import { SavedPage } from './saved';
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { IonicModule, NavController } from 'ionic-angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavControllerMock, spyOnConsole, SecureStorageServiceMock } from "../../mocks";
@@ -44,9 +44,21 @@ describe('Page: SavedPage', () => {
     componentInstance.getSavedPasswords();
 
     fixture.whenStable().then(() => {
-      console.log(componentInstance.savedPasswords);
       expect(componentInstance.savedPasswords.length).toBeGreaterThan(0);
     });
   });
+
+  // it('should delete onDelete',
+  //   fakeAsync(() => {
+  //     componentInstance.savedPasswords = [{ value: 'one' }, { value: 'two' }, { value: 'three' }, { value: 'four' }, { value: 'five' }];
+  //     componentInstance.onRemove('one');
+
+  //     fixture.whenStable().then(() => {
+  //       tick();
+
+  //       expect(componentInstance.savedPasswords.length).toBe(4);
+  //     });
+  //   })
+  // );
 
 });

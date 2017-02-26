@@ -12,16 +12,21 @@
         <password-item [passwordSuggestion]="password"></password-item>
       </div>
     </ion-item-group>
-    <ion-item-group>
+    <!--<ion-item-group>
       <ion-item-divider color="light" sticky>Passwords with number</ion-item-divider>
       <div *ngFor="let password of passwordsWithNumber">
         <password-item [passwordSuggestion]="password"></password-item>
       </div>
-    </ion-item-group>
+    </ion-item-group>-->
+
   </ion-list>
 
   <p padding-left padding-right>
-    <button ion-button block padding (click)="onGeneratePasswords()">Refresh passwords</button>
+    <button ion-button block padding (click)="onGeneratePasswords()">Re-generate</button>
+  </p>
+
+  <p class="wrap-text" padding>
+    Add complexity to your password by adding number, special characters, and capital letters.
   </p>
 
 </ion-content>

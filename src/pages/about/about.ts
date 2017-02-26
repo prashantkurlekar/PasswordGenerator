@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { AppVersion } from 'ionic-native';
 
 @Component({
@@ -10,13 +10,15 @@ export class AboutPage {
 
   public appVersion: string;
 
-  constructor(public navController: NavController) {
+  constructor(public navController: NavController, public platform: Platform) {
     this.extractAppVersion();
   }
 
   public extractAppVersion(): void {
-    AppVersion.getVersionNumber().then(appVersion => {
-      this.appVersion = appVersion;
+    this.platform.ready().then(() => {
+      AppVersion.getVersionNumber().then(appVersion => {
+        this.appVersion = appVersion;
+      });
     });
   }
 

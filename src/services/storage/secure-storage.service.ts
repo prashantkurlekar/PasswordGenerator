@@ -1,7 +1,6 @@
 import { LoggerService } from './../logger/logger.service';
 import { Injectable } from '@angular/core';
-import { SecureStorage, AppVersion } from 'ionic-native';
-import { AppConfig } from './../../app/app.config';
+import { SecureStorage } from 'ionic-native';
 
 @Injectable()
 export class SecureStorageService {
@@ -9,36 +8,36 @@ export class SecureStorageService {
   public storage: SecureStorage;
 
   constructor() {
-    LoggerService.info('StorageService.constructor');
-    this.storage = new SecureStorage();
+    LoggerService.log('StorageService.constructor');
     this.create(this.storage);
   }
 
   private create(storage: SecureStorage): void {
-    LoggerService.info('StorageService.create');
-    AppVersion.getAppName().then(appName => {
-      LoggerService.debug(appName);
-      storage.create(appName).then(() => {
-        LoggerService.info('Secure storage ready');
-        this.remove(AppConfig.savedPasswordsStorageKey);
-      });
+    LoggerService.log('StorageService.create');
+    this.storage = new SecureStorage();
+    // AppVersion.getAppName().then(appName => {
+    //   LoggerService.log(appName);
+    this.storage.create('pPassword').then(() => {
+      LoggerService.log('Secure storage ready');
     });
+    // });
   }
 
   public set(key: string, value: string): Promise<any> {
-    LoggerService.info(`StorageService.set`);
-    return this.storage.set(key, value);
+    LoggerService.log(`StorageService.set`);
+    LoggerService.log(value);
+    return this.storage.set(key, JSON.stringify(value));
   }
 
   public get(key: string): Promise<any> {
-    LoggerService.info(`StorageService.get`);
+    LoggerService.log(`StorageService.get`);
     return this.storage.get(key).then(
       data => { return JSON.parse(data); },
       error => LoggerService.error(error));
   }
 
   public remove(key: string): Promise<any> {
-    LoggerService.info(`StorageService.remove`);
+    LoggerService.log(`StorageService.remove`);
     return this.storage.remove(key);
   }
 }

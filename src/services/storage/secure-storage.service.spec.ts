@@ -1,7 +1,7 @@
 import { SecureStorage } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 // import { AppConfig } from './../../app/app.config';
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 import { SecureStorageService } from './secure-storage.service';
 import { spyOnConsole } from "../../mocks";
 
@@ -26,15 +26,16 @@ describe('Service: StorageService', () => {
   );
 
   // it('should save data in secure storage',
-  //   async(inject([StorageService], (service: StorageService) => {
+  //   async(inject([SecureStorageService], (service: SecureStorageService) => {
   //     const key: string = 'defaultPasswordLength';
   //     const value: any = 10;
+  //     const secureStorage = TestBed.createComponent(SecureStorageService).debugElement.injector.get('SecureStorage');
 
-  //     spyOn(StorageService.storage, 'set').and.stub();
+  //     spyOn(secureStorage, 'set').and.stub();
 
   //     service.set(key, value);
 
-  //     expect(StorageService.storage.set).toHaveBeenCalled();
+  //     expect(secureStorage.set).toHaveBeenCalled();
   //   }))
   // );
 

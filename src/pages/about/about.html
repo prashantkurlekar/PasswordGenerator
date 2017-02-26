@@ -9,9 +9,26 @@
 <ion-content>
   <ion-list>
     <ion-item>
+      <p class="wrap-text">
+        It's recently <a href="https://xkcd.com/936/">come to people's attention</a> that long passphrases of multiple words
+        are better than short passwords that are hard to remember. As a result, there are passphrase generators that string
+        together a number of words.
+      </p>
+      <p class="wrap-text">
+        The backend is written by <a href="http://www.multicians.org/thvv/tvv-home.html">Tom Van Vleck</a> is modeled after
+        <a href="../multicians.html#Gasser" title="Multician: Contractor (MITRE): Multics Security Enhancements, password generator">Morrie Gasser's</a>        original generator described in Gasser, M.,
+        <cite>A Random Word Generator for Pronouncable Passwords</cite>, MTR-3006, The MITRE Corporation, Bedford, MA 01730,
+        ESD-TR-75-97, HQ Electronic Systems Division, Hanscom AFB, MA 01731. NTIS AD A 017676; except that Morrie's used
+        a second-order approximation to English and this generator uses a <b>third-order</b> approximation.
+      </p>
+      <p class="wrap-text">
+        Reusing passwords is very risky. Generate fresh ones for each need and store a list in an encrypted file. (Static or reusable
+        passwords are obsolete. If you have a choice of authentication methods, look for a stronger method than passwords.)
+      </p>
+    </ion-item>
+    <ion-item no-lines>
       Version
       <span item-right>{{ appVersion }}</span>
     </ion-item>
-    <ion-item>Feedback</ion-item>
   </ion-list>
 </ion-content>

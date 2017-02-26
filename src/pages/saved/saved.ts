@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { PronounceablePasswordService } from "../../services/index";
 import { LoggerService } from "../../services/logger/logger.service";
+import { Password } from "../../models/password";
 
 @Component({
   selector: 'page-saved',
@@ -9,13 +10,12 @@ import { LoggerService } from "../../services/logger/logger.service";
 })
 export class SavedPage {
 
-  public savedPasswords: any;
+  public savedPasswords = [];
 
   constructor(public navController: NavController, public passwordService: PronounceablePasswordService) { ; }
 
   public ionViewDidLoad() {
     LoggerService.log('ionViewDidLoad SavedPage');
-    // this.getSavedPasswords();
   }
 
   public ionViewDidEnter() {
@@ -24,9 +24,21 @@ export class SavedPage {
   }
 
   public getSavedPasswords(): void {
-    this.passwordService.getSavedPasswords().then(passwords => {
-      LoggerService.debug(passwords);
-      this.savedPasswords = passwords;
+    LoggerService.log(`SavedPage.getSavedPasswords`);
+    this.passwordService.getSavedPasswords()
+      .then(passwords => {
+        this.savedPasswords = passwords;
+      })
+      .catch(error => {
+        LoggerService.error(error);
+      });
+  }
+
+  public onRemove(passwordToDelete: Password): void {
+    LoggerService.log(`SavedPage.onRemove`);
+    LoggerService.debug(this.savedPasswords.length);
+    this.passwordService.deletePassword(passwordToDelete.value).then(() => {
+      this.ionViewDidEnter();
     });
   }
 

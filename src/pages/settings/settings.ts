@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { SettingsService } from '../../services';
 
 @Component({
   selector: 'page-settings',
@@ -7,7 +8,7 @@ import { NavController } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navController: NavController) { }
+  constructor(public navController: NavController, public settingsService: SettingsService) { }
 
   public ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');

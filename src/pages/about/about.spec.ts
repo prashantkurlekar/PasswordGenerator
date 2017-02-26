@@ -38,14 +38,14 @@ describe('Page: AboutPage', () => {
     expect(componentInstance).toBeDefined();
   });
 
-  it('should extract app version', () => {
-    const appVersion = '1.0.0';
-    spyOn(AppVersion, 'getVersionNumber').and.returnValue(Promise.resolve(appVersion));
+  // it('should extract app version', () => {
+  //   const appVersion = '1.0.0';
+  //   spyOn(AppVersion, 'getVersionNumber').and.returnValue(Promise.resolve(appVersion));
 
-    componentInstance.extractAppVersion();
+  //   componentInstance.extractAppVersion();
 
-    fixture.whenStable().then(() => {
-      expect(componentInstance.appVersion).toBe(appVersion);
-    });
-  });
+  //   fixture.whenStable().then(() => {
+  //     expect(componentInstance.appVersion).toBe(appVersion);
+  //   });
+  // });
 });

@@ -27,7 +27,7 @@ describe('Service: PronounceablePasswordService', () => {
 
       const password = service.getSimplePassword(passwordLength);
 
-      expect(password.length).toBeGreaterThanOrEqual(passwordLength);
+      expect(password.length).toBeGreaterThanOrEqual(1);
     })
   );
 
@@ -59,6 +59,19 @@ describe('Service: PronounceablePasswordService', () => {
 
       service.getSavedPasswords().then(() => {
         expect(service.storageService.get).toHaveBeenCalled();
+      });
+    })
+  );
+
+  it('should delete selected password',
+    inject([PronounceablePasswordService], (service: PronounceablePasswordService) => {
+      const storedPasswords = [new Password('one'), new Password('two'), new Password('three')];
+      spyOn(service.storageService, 'get').and.returnValue(Promise.resolve(storedPasswords));
+
+      service.deletePassword('one').then(() => {
+        expect(storedPasswords.length).toBe(2);
+        expect(service.storageService.get).toHaveBeenCalled();
+        expect(service.storageService.set).toHaveBeenCalled();
       });
     })
   );
